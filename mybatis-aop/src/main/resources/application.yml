@@ -1,0 +1,28 @@
+server:
+    port: 80
+
+dbpool:
+    type: com.alibaba.druid.pool.DruidDataSource
+    database1:
+        name: db1
+        url: jdbc:mysql://localhost:3306/database1?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: root
+        initial-size: 5
+        min-idle: 1
+        max-active: 100
+        test-on-borrow: true
+    database2:
+        name: db2
+        url: jdbc:mysql://localhost:3306/database2?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: root
+        initial-size: 5
+        min-idle: 1
+        max-active: 100
+        test-on-borrow: true
+spring:
+  profiles:
+    active: actuator,ds2
