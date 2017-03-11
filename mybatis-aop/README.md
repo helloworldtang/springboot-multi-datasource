@@ -40,7 +40,7 @@ https://www.ccampo.me/java/spring/2016/02/13/multi-datasource-spring-boot.html
 网上见到的错误用法1：使用AutoConfigureAfter来确定Bean之间的依赖
 @AutoConfigureAfter only controls the ordering of auto-configuration classes and has no effect on dependency injection.
 It also only affects auto-configuration classes so may we'll be doing nothing on your Assembly class.
-
+http://stackoverflow.com/questions/39717450/explanation-of-configuration-autoconfigureafter-with-kotlin
 
 todo:
 动态数据源重复代码剥离：@Primary
