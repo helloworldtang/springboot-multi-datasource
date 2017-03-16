@@ -1,0 +1,10 @@
+test1:
+  url: jdbc:mysql://localhost:3306/test1?characterEncoding=UTF-8
+  username: root
+  password:
+  driverClassName: com.mysql.jdbc.Driver
+test2:
+  url: jdbc:mysql://localhost:3306/test2?characterEncoding=UTF-8
+  username: root
+  password:
+  driverClassName: com.mysql.jdbc.Driver
