@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = "com.tangcheng.datasource.notaop.mapper.test2", sqlSessionTemplateRef = "test2SqlSessionTemplate")
 public class DataSource2Config {
+
     @Bean(name = "test2DataSource")
     @ConfigurationProperties(prefix = "test2")
     public DataSource testDataSource() {
@@ -42,4 +43,5 @@ public class DataSource2Config {
     public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("test2SqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
+
 }

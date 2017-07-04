@@ -1,6 +1,5 @@
 package com.tangcheng.datasources.aop.config;
 
-import com.tangcheng.datasources.aop.config.util.DynamicDataSource;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +15,11 @@ import java.util.Properties;
 /**
  * Created by tang.cheng on 2017/3/11.
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 @EnableTransactionManagement
 public class TxConfig {
+
     @Bean
     public PlatformTransactionManager transactionManager(AbstractRoutingDataSource dataSource) throws Exception {
         return new DataSourceTransactionManager(dataSource);

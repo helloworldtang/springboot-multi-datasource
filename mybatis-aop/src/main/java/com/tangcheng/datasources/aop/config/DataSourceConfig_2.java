@@ -1,19 +1,14 @@
 package com.tangcheng.datasources.aop.config;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.tangcheng.datasources.aop.config.util.DatabaseType;
-import com.tangcheng.datasources.aop.config.util.DynamicDataSource;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -42,6 +37,7 @@ public class DataSourceConfig_2 implements EnvironmentAware {
     }
 
     @Bean
+    @Primary
     public DataSource test2DataSource() throws Exception {
         Properties props = new Properties();
         props.put("driverClassName", environment.getProperty("dbpool.database2.driver-class-name"));
@@ -51,17 +47,5 @@ public class DataSourceConfig_2 implements EnvironmentAware {
         return DruidDataSourceFactory.createDataSource(props);
     }
 
-    @Bean
-    @Primary
-    public AbstractRoutingDataSource routingDataSource(DataSource test1DataSource, DataSource test2DataSource) {
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DatabaseType.TEST1, test1DataSource);
-        targetDataSources.put(DatabaseType.TEST2, test2DataSource);
-
-        AbstractRoutingDataSource routingDataSource = new DynamicDataSource();
-        routingDataSource.setTargetDataSources(targetDataSources);// 该方法是AbstractRoutingDataSource的方法
-        routingDataSource.setDefaultTargetDataSource(test2DataSource);// 默认的datasource设置为myTestDbDataSource
-        return routingDataSource;
-    }
 
 }

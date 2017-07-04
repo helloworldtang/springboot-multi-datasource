@@ -5,9 +5,6 @@ import com.tangcheng.datasources.aop.config.util.DynamicDataSource;
 import com.tangcheng.datasources.aop.util.BaseMapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +13,6 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,9 +24,24 @@ import java.util.Properties;
  * 2）创建SqlSessionFactory
  * 3）配置事务管理器，除非需要使用事务，否则不用配置
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 @ConditionalOnClass(DataSource.class)
 public class MyBatisConfig {
+
+
+    @Bean
+    @Primary
+    public AbstractRoutingDataSource routingDataSource(DataSource test1DataSource, DataSource test2DataSource) {
+        Map<Object, Object> targetDataSources = new HashMap<>();
+        targetDataSources.put(DatabaseType.TEST1, test1DataSource);
+        targetDataSources.put(DatabaseType.TEST2, test2DataSource);
+
+        AbstractRoutingDataSource routingDataSource = new DynamicDataSource();
+        routingDataSource.setTargetDataSources(targetDataSources);// 该方法是AbstractRoutingDataSource的方法
+        routingDataSource.setDefaultTargetDataSource(test2DataSource);// 默认的datasource设置为myTestDbDataSource
+        return routingDataSource;
+    }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
