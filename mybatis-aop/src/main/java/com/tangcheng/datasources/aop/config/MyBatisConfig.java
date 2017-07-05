@@ -5,10 +5,9 @@ import com.tangcheng.datasources.aop.config.util.DynamicDataSource;
 import com.tangcheng.datasources.aop.util.BaseMapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
@@ -26,13 +25,11 @@ import java.util.Properties;
  */
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
-@ConditionalOnClass(DataSource.class)
 public class MyBatisConfig {
 
-
     @Bean
-    @Primary
-    public AbstractRoutingDataSource routingDataSource(DataSource test1DataSource, DataSource test2DataSource) {
+    public AbstractRoutingDataSource routingDataSource(@Qualifier("test1DataSource")DataSource test1DataSource,
+                                                       @Qualifier("test2DataSource")DataSource test2DataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DatabaseType.TEST1, test1DataSource);
         targetDataSources.put(DatabaseType.TEST2, test2DataSource);
