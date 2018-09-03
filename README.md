@@ -12,3 +12,5 @@
 2、同一个数据源的事务控制和普通的数据源控制是一致的，没有什么区别。  
 
 
+![微信扫描二维码，关注我的公众号](https://upload-images.jianshu.io/upload_images/6086860-6781dd7c41d7f14d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+ <center>微信扫描二维码，关注我的公众号</center>
